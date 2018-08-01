@@ -1,4 +1,27 @@
 flexible_automation = {
+  mover = {
+    itemId = 'flexible_automation:mover',
+    itemDefinition = {
+      description = 'Item Mover',
+      after_place_node = function(pos, placer)
+        local meta = minetest.get_meta(pos)
+        local inv = meta:get_inventory()
+        inv:set_size("src", 1)
+        meta:set_string('formspec',
+          'size[8,9]' ..
+          'no_prepend[]' ..
+          'list[context;src;2,1;1,1;]' ..
+          'list[current_player;main;0,5;8 ,4;]'
+        )
+      end,
+      on_metadata_inventory_put = function(pos, listname, index, stack, player)
+        minetest.debug('woohoo! Handled.')
+      end,
+    },
+    register = function()
+      minetest.register_node(flexible_automation.mover.itemId, flexible_automation.mover.itemDefinition)
+    end,
+  },
   ref = {
     itemId = 'flexible_automation:ref',
     itemDefinition = {
@@ -44,5 +67,6 @@ flexible_automation = {
   },
 }
 
+flexible_automation.mover.register()
 flexible_automation.ref.register()
 flexible_automation.refTaker.register()
