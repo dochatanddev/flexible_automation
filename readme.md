@@ -4,7 +4,7 @@
 Mod adds 3 things:
 1. refTaker tool (id `flexible_automation:reftaker`)
 1. ref (id `flexible_automation:ref`)
-1. filter (id `flexible_automation:filter`)
+1. mover (id `flexible_automation:mover`)
 
 ## How to use these things?
 Use refTaker to take ref (basically a link to that block
