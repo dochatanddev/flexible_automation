@@ -17,19 +17,22 @@ doing that you do moving items between chests.
 ## How to install this mod:
 You have 2 options:
 ### 1. Simplest: 
-Download the mod from  https://bitbucket.org/dochatanddev/flexible_automation/get/master.zip and unpack to your .minetest/mods folder.
+Download the mod from https://github.com/dochatanddev/flexible_automation/archive/master.zip and unpack to your .minetest/mods folder.
   
 ### 2. Harder (but easier to update):
 Clone repository to .minetest/mods folder with
 changing directory to .minetest/mods and running command:
-  `git clone https://dochatanddev@bitbucket.org/dochatanddev/flexible_automation.git`
+  `git clone https://github.com/dochatanddev/flexible_automation.git`
 With harder way to install you can update with `git pull` command from the mod folder
 
 ## Dependencies:
 - nothing.
 
 ## Where to report bugs:
-Bug reporting doesn't work well yet, but try https://bitbucket.org/dochatanddev/flexible_automation/issues/new
+First, search your bug at https://github.com/dochatanddev/flexible_automation/issues.
+
+If you couldn't find it, create a new issue.
+
 
 ## License: 
 not decided yet
