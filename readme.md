@@ -10,7 +10,7 @@ Mod adds 3 things:
 Use refTaker to take ref (basically a link to that block
 in a form of new block).
 Example: use refTaker on 2 different chests. Place 
-refs of these chests in filter
+refs of these chests in mover
 to transfer items between referenced chests.
 
 ## How to install this mod:
