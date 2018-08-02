@@ -1,21 +1,83 @@
 flexible_automation = {
   mover = {
     itemId = 'flexible_automation:mover',
+    generateFormspec = function(x,y,z, preparedSrcOptions, preparedTargetOptions, selectedSrcOption, selectedTargetOption)
+      return string.format ( [[
+size[10,10]
+label[0,0;Source
+ref here]
+label[4,0;Filter
+by block]
+label[8,0;Target
+ref here]
+list[nodemeta:%s,%s,%s;srcRef;0,1;1,1]
+list[nodemeta:%s,%s,%s;filterBlock;4,1;1,1]
+list[nodemeta:%s,%s,%s;targetRef;8,1;1,1]
+label[0,3;Select source inventory
+     (down)]
+label[5,3;Select target inventory
+     (down)]
+dropdown[0,4;5;srcOptions;%s;%s]
+dropdown[5,4;5;targetOptions;%s;%s]
+list[current_player;main;0,6;8,4;]
+      ]],
+      x,y,z,
+      x,y,z,
+      x,y,z,
+      preparedSrcOptions, selectedSrcOption,
+      preparedTargetOptions, selectedTargetOption
+      )
+    end,
+    showFormspec = function(pos, player)
+      local preparedSrcOptions = "source ref empty"
+      local preparedTargetOptions = "target ref empty"
+      local selectedSrcOption = 1
+      local selectedTargetOption = 1
+      
+      local formspec = flexible_automation.mover.generateFormspec(
+        pos.x, pos.y, pos.z,
+        preparedSrcOptions,
+        preparedTargetOptions,
+        selectedSrcOption,
+        selectedTargetOption
+      )
+      
+      --minetest.debug(dump2(formspec))
+      minetest.show_formspec(player:get_player_name(), 
+        flexible_automation.mover.itemId .. 'GUI ' .. minetest.pos_to_string(pos),
+        formspec
+      )
+    end,
     itemDefinition = {
       description = 'Item Mover',
-      after_place_node = function(pos, placer)
+      on_construct = function(pos)
         local meta = minetest.get_meta(pos)
         local inv = meta:get_inventory()
-        inv:set_size("src", 1)
-        meta:set_string('formspec',
-          'size[8,9]' ..
-          'no_prepend[]' ..
-          'list[context;src;2,1;1,1;]' ..
-          'list[current_player;main;0,5;8 ,4;]'
-        )
+        inv:set_size("srcRef", 1)
+        inv:set_size("targetRef", 1)
+        inv:set_size("filterBlock", 1)
+      end,
+      on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+        if not clicker then return end
+        if not clicker:is_player() then return end
+        
+        flexible_automation.mover.showFormspec(pos, clicker)
       end,
       on_metadata_inventory_put = function(pos, listname, index, stack, player)
-        minetest.debug('woohoo! Handled.')
+        --minetest.debug("InvPut")
+        flexible_automation.mover.showFormspec(pos, player)
+      end,
+      on_metadata_inventory_take = function(pos, listname, index, stack, player)
+        --minetest.debug("InvTake")
+        flexible_automation.mover.showFormspec(pos, player)
+      end,
+      on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+        --minetest.debug("InvMove")
+        flexible_automation.mover.showFormspec(pos, player)
+      end,
+      on_receive_fields = function(pos, formname, fields, sender)
+        --minetest.debug("Fields gotten!")
+        flexible_automation.mover.showFormspec(pos, sender)
       end,
     },
     register = function()
