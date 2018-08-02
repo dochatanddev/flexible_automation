@@ -50,6 +50,14 @@ list[current_player;main;0,6;8,4;]
     end,
     itemDefinition = {
       description = 'Item Mover',
+      tiles = {
+        "flexible_automation_mover.png",
+        "flexible_automation_mover.png",
+        "flexible_automation_mover.png",
+        "flexible_automation_mover.png",
+        "flexible_automation_mover.png",
+        "flexible_automation_mover.png",
+      },
       on_construct = function(pos)
         local meta = minetest.get_meta(pos)
         local inv = meta:get_inventory()
@@ -88,6 +96,7 @@ list[current_player;main;0,6;8,4;]
     itemId = 'flexible_automation:ref',
     itemDefinition = {
       description = 'Reference Node for %s',
+      inventory_image = 'flexible_automation_ref.png',
       stack_max = 1,
     },
     register = function()
@@ -98,6 +107,7 @@ list[current_player;main;0,6;8,4;]
     itemId = 'flexible_automation:reftaker',
     itemDefinition = {
       description = 'Reference Taker Tool',
+      inventory_image = 'flexible_automation_reftaker.png',
       on_use = function(itemstack, placer, pointed_thing)
         local pos = pointed_thing.under
         local player_name = user and user:get_player_name() or ""
