@@ -28,11 +28,34 @@ list[current_player;main;0,6;8,4;]
       preparedTargetOptions, selectedTargetOption
       )
     end,
+    getRefInventoryList = function(refItemStack)
+      if refItemStack:is_empty() then return {} end
+      
+      if refItemStack:get_name() ~= flexible_automation.ref.itemId then
+        return {} end
+      end
+      
+      
+    end
     showFormspec = function(pos, player)
       local preparedSrcOptions = "source ref empty"
       local preparedTargetOptions = "target ref empty"
       local selectedSrcOption = 1
       local selectedTargetOption = 1
+      
+      local mymeta = minetest.get_meta(pos)
+      local myinv = mymeta:get_inventory()
+      local myinvLists = myinv:get_lists()
+      
+      local srcRef = myinvLists.srcRef[1]
+      local targetRef = myInvLists.targetRef[1]
+      local filterBlock = myInvLists.filterBlock[1]
+      
+      if not srcRef:is_empty() then
+      end
+      
+      if not targetRef:is_empty() then
+      end
       
       local formspec = flexible_automation.mover.generateFormspec(
         pos.x, pos.y, pos.z,
